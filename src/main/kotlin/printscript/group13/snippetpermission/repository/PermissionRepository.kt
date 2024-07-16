@@ -8,13 +8,19 @@ import printscript.group13.snippetpermission.model.Permission
 import printscript.group13.snippetpermission.model.PermissionType
 import java.util.UUID
 
-interface PermissionRepository : JpaRepository<Permission, UUID>{
-    fun findByUserIdAndSnippetId(userId: String, snippetId: UUID): Permission?
+interface PermissionRepository : JpaRepository<Permission, UUID> {
+    fun findByUserIdAndSnippetId(
+        userId: String,
+        snippetId: UUID,
+    ): Permission?
 
     @Modifying
     @Transactional
     @Query("UPDATE Permission p SET p.permission = :permission WHERE p.id = :id")
-    fun updatePermission(id: UUID, permission: PermissionType): Permission
+    fun updatePermission(
+        id: UUID,
+        permission: PermissionType,
+    ): Permission
 
     fun findAllByUserId(userId: String): List<Permission>
 

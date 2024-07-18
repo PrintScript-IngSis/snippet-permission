@@ -8,7 +8,6 @@ import printscript.group13.snippetpermission.exceptions.PermissionNotFoundExcept
 import printscript.group13.snippetpermission.input.PermissionInput
 import printscript.group13.snippetpermission.model.Permission
 import printscript.group13.snippetpermission.model.PermissionType
-import printscript.group13.snippetpermission.model.UserWithoutPermissions
 import printscript.group13.snippetpermission.repository.PermissionRepository
 import java.util.UUID
 
@@ -27,7 +26,6 @@ class PermissionService(@Autowired private val permissionRepository: PermissionR
             userId = userId,
             snippetId = snippetId,
             permission = permissionInput.permission,
-            username = permissionInput.username
         )
         logger.info("Permission created for user $userId and snippet $snippetId")
         return permissionRepository.save(permission)
@@ -51,17 +49,6 @@ class PermissionService(@Autowired private val permissionRepository: PermissionR
             throw PermissionNotFoundException()
         }
         return permissionRepository.updatePermission(preexistingPermission.id, permission)
-    }
-
-    fun getUsersWithoutPermission(snippetId: UUID, userId: String): List<UserWithoutPermissions> {
-        logger.info("Getting users without permissions for snippet $snippetId and user $userId")
-        val preexistingPermissions = permissionRepository.findAll()
-        val usersWithoutPermissions = preexistingPermissions.filter { it.snippetId != snippetId && it.userId != userId }
-        if(usersWithoutPermissions.isEmpty()) {
-            logger.error("No users without permissions found for snippet $snippetId and user $userId")
-            return emptyList()
-        }
-        return usersWithoutPermissions.map { UserWithoutPermissions(it.userId!!, it.username!!) }
     }
 
     fun deletePermissionsForSnippetId(snippetId: UUID) {

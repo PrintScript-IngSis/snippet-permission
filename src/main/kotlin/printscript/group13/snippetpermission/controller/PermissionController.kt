@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import printscript.group13.snippetpermission.input.PermissionInput
 import printscript.group13.snippetpermission.model.Permission
-import printscript.group13.snippetpermission.model.UserWithoutPermissions
 import printscript.group13.snippetpermission.service.PermissionService
 import java.util.UUID
 
@@ -49,11 +48,5 @@ class PermissionController(@Autowired private val permissionService: PermissionS
     fun getPermissionsByUserId(@PathVariable userId: String): ResponseEntity<List<Permission>> {
         val permissions = permissionService.getPermissionsByUserId(userId)
         return ResponseEntity.ok().body(permissions)
-    }
-
-    @GetMapping("/{snippetId}/users/{userId}/no-permissions")
-    fun getUsersWithoutPermission(@PathVariable snippetId: UUID, @PathVariable userId: String): ResponseEntity<List<UserWithoutPermissions>> {
-        val usersWithoutPermissions = permissionService.getUsersWithoutPermission(snippetId, userId)
-        return ResponseEntity.ok().body(usersWithoutPermissions)
     }
 }

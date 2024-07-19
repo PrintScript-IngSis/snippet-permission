@@ -41,9 +41,10 @@ class PermissionService(
     fun getPermissionBySnippetId(
         snippetId: UUID,
         userId: String,
-    ): Permission? {
+    ): Permission {
         logger.info("Getting permission for snippet $snippetId and user $userId")
-        return permissionRepository.findByUserIdAndSnippetId(userId, snippetId) ?: throw PermissionNotFoundException()
+        return permissionRepository.findByUserIdAndSnippetId(userId, snippetId)
+            ?: throw PermissionNotFoundException()
     }
 
     fun getPermissionsByUserId(userId: String): List<Permission> {
@@ -62,7 +63,8 @@ class PermissionService(
             logger.error("Permission not found for snippet $snippetId and user $userId")
             throw PermissionNotFoundException()
         }
-        return permissionRepository.updatePermission(preexistingPermission.id, permission)
+        preexistingPermission.permission = permission
+        return permissionRepository.save(preexistingPermission)
     }
 
     fun deletePermissionsForSnippetId(snippetId: UUID) {

@@ -12,7 +12,7 @@ data class Permission(
     val snippetId: UUID? = null,
     @Enumerated(EnumType.STRING)
     @Column(name = "permission", nullable = false)
-    val permission: PermissionType? = PermissionType.READ,
+    var permission: PermissionType? = PermissionType.READ,
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID(),

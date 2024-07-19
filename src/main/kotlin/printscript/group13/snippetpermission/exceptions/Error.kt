@@ -11,3 +11,5 @@ class PermissionAlreadyExistsException() : RuntimeException("Permission already 
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 class PermissionInvalidException(value: String) : RuntimeException("Permission $value is invalid")
+
+//nada que pushear

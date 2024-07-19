@@ -34,7 +34,6 @@ class PermissionService(
                 userId = userId,
                 snippetId = snippetId,
                 permission = permissionInput.permission,
-                username = permissionInput.username,
             )
         logger.info("Permission created for user $userId and snippet $snippetId")
         return permissionRepository.save(permission)
@@ -78,7 +77,7 @@ class PermissionService(
             logger.error("No users without permissions found for snippet $snippetId and user $userId")
             return emptyList()
         }
-        return usersWithoutPermissions.map { UserWithoutPermissions(it.userId!!, it.username!!) }
+        return usersWithoutPermissions.map { UserWithoutPermissions(it.userId!!) }
     }
 
     fun deletePermissionsForSnippetId(snippetId: UUID) {

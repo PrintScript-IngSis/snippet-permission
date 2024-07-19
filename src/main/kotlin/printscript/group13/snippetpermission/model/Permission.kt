@@ -23,6 +23,4 @@ data class Permission(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID(),
-    @Column(name = "username", nullable = false)
-    val username: String? = null,
 )

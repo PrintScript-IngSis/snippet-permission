@@ -18,7 +18,7 @@ import printscript.group13.snippetpermission.service.PermissionService
 import java.util.UUID
 
 @RestController
-@RequestMapping("/permissions")
+@RequestMapping("/api/permissions")
 class PermissionController(
     @Autowired private val permissionService: PermissionService,
 ) {

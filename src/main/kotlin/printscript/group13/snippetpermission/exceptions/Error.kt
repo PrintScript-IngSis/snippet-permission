@@ -1,16 +1,13 @@
 package printscript.group13.snippetpermission.exceptions
 
-class PermissionNotFoundException() : Exception() {
-    override val message: String
-        get() = "Permission not found"
-}
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.ResponseStatus
 
-class PermissionAlreadyExistsException() : Exception() {
-    override val message: String
-        get() = "Permission already exists"
-}
+@ResponseStatus(HttpStatus.NOT_FOUND)
+class PermissionNotFoundException() : RuntimeException("Permission not found")
 
-class PermissionInvalidException(private val value: String) : RuntimeException() {
-    override val message: String
-        get() = "Permission $value is invalid"
-}
+@ResponseStatus(HttpStatus.CONFLICT)
+class PermissionAlreadyExistsException() : RuntimeException("Permission already exists")
+
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+class PermissionInvalidException(value: String) : RuntimeException("Permission $value is invalid")

@@ -47,7 +47,7 @@ tasks.withType<Test> {
 koverReport {
     verify {
         rule {
-            minBound(0)
+            minBound(80)
         }
     }
 }

@@ -12,26 +12,36 @@ import printscript.group13.snippetpermission.repository.PermissionRepository
 import java.util.UUID
 
 @Service
-class PermissionService(@Autowired private val permissionRepository: PermissionRepository) {
+class PermissionService(
+    @Autowired private val permissionRepository: PermissionRepository,
+) {
     private val logger = LoggerFactory.getLogger(PermissionService::class.java)
 
-    fun createPermission(userId: String, snippetId: UUID, permissionInput: PermissionInput): Permission {
+    fun createPermission(
+        userId: String,
+        snippetId: UUID,
+        permissionInput: PermissionInput,
+    ): Permission {
         logger.info("Creating permission for user $userId and snippet $snippetId")
         val preexistingPermission = permissionRepository.findByUserIdAndSnippetId(userId, snippetId)
         if (preexistingPermission != null) {
             logger.error("Permission already exists for user $userId and snippet $snippetId")
             throw PermissionAlreadyExistsException()
         }
-        val permission = Permission(
-            userId = userId,
-            snippetId = snippetId,
-            permission = permissionInput.permission,
-        )
+        val permission =
+            Permission(
+                userId = userId,
+                snippetId = snippetId,
+                permission = permissionInput.permission,
+            )
         logger.info("Permission created for user $userId and snippet $snippetId")
         return permissionRepository.save(permission)
     }
 
-    fun getPermissionBySnippetId(snippetId: UUID, userId: String): Permission? {
+    fun getPermissionBySnippetId(
+        snippetId: UUID,
+        userId: String,
+    ): Permission? {
         logger.info("Getting permission for snippet $snippetId and user $userId")
         return permissionRepository.findByUserIdAndSnippetId(userId, snippetId) ?: throw PermissionNotFoundException()
     }
@@ -41,7 +51,11 @@ class PermissionService(@Autowired private val permissionRepository: PermissionR
         return permissionRepository.findAllByUserId(userId)
     }
 
-    fun updatePermission(snippetId: UUID, userId: String, permission: PermissionType): Permission {
+    fun updatePermission(
+        snippetId: UUID,
+        userId: String,
+        permission: PermissionType,
+    ): Permission {
         logger.info("Updating permission for snippet $snippetId and user $userId")
         val preexistingPermission = permissionRepository.findByUserIdAndSnippetId(userId, snippetId)
         if (preexistingPermission == null) {

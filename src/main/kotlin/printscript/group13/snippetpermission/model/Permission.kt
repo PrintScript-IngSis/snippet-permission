@@ -1,10 +1,17 @@
 package printscript.group13.snippetpermission.model
 
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.util.UUID
 
 @Entity
-@Table(name= "permission")
+@Table(name = "permission")
 data class Permission(
     @Column(name = "userId", nullable = false)
     val userId: String? = null,

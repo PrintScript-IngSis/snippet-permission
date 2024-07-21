@@ -14,6 +14,7 @@ services:
       DB_NAME: ${POSTGRES_DB}
       DB_HOST: permission-db
       DB_PORT: ${DB_PORT}
+      NEW_RELIC_AGENT_ENABLED: true
     networks:
       - snippet_network
       - permission_network

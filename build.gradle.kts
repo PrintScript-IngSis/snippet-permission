@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.ir.backend.js.compile
 
 plugins {
     id("org.springframework.boot") version "3.2.5"
@@ -31,6 +32,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.boot:spring-boot-starter-validation:3.3.0")
     implementation("org.jetbrains.kotlinx:kover-gradle-plugin:0.7.6")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive:+")
 }
 
 tasks.withType<KotlinCompile> {
